@@ -1,5 +1,6 @@
 import pygame
 
+
 class AmongUs():
 
     def __init__(self,screen):

@@ -2,28 +2,22 @@ import sys
 
 import pygame
 
-from amongus import AmongUs
+from pers import AmongUs
+from settings import Settings
+import game_functions as fg
 
 def run_game():
     #Инициализация игры и создание объекта
     pygame.init()
-    screen = pygame.display.set_mode((1200,800))
-    pygame.display.set_caption("Alien Invasion")
+    au_settings = Settings()
+    screen = pygame.display.set_mode((au_settings.screen_width, au_settings.screen_height))
+    pygame.display.set_caption("Amon Us для Илюши!!!")
     #Назначение цвета фона
-    bg_color = (230,230,230)
-    umngus = AmongUs(screen)
+    amongus = AmongUs(screen)
 
     #Запуск основного цикла игры
     while True:
-        #Отслеживание событий клавиатуры и мыши
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            screen.fill(bg_color)
-            umngus.blitme()
-
-        #Отображение последнего прорисованного экрана
-        pygame.display.flip()
+        fg.check_events()
+        fg.update_screen(au_settings,screen,amongus)
+      
 run_game()
-
-#Проверка изменений

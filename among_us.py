@@ -17,7 +17,8 @@ def run_game():
 
     #Запуск основного цикла игры
     while True:
-        fg.check_events()
+        fg.check_events(amongus)
+        amongus.update()
         fg.update_screen(au_settings,screen,amongus)
       
 run_game()

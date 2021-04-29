@@ -13,7 +13,9 @@ def run_game():
     screen = pygame.display.set_mode((au_settings.screen_width, au_settings.screen_height))
     pygame.display.set_caption("Amon Us для Илюши!!!")
     #Назначение цвета фона
-    amongus = AmongUs(screen)
+    amongus = AmongUs(screen)#au_settings
+    #Создание персонажа
+    #among_us_blue = AmongUs(au_settings,screen)
 
     #Запуск основного цикла игры
     while True:

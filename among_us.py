@@ -1,6 +1,7 @@
 import sys
 
 import pygame
+from pygame.sprite import Group
 
 from pers import AmongUs
 from settings import Settings
@@ -14,13 +15,15 @@ def run_game():
     pygame.display.set_caption("Amon Us для Илюши!!!")
     #Назначение цвета фона
     amongus = AmongUs(screen)#au_settings
+    bullets = Group()
     #Создание персонажа
     #among_us_blue = AmongUs(au_settings,screen)
 
     #Запуск основного цикла игры
     while True:
-        fg.check_events(amongus)
+        fg.check_events(au_settings,screen,amongus,bullets)
         amongus.update()
-        fg.update_screen(au_settings,screen,amongus)
+        bullets.update()
+        fg.update_screen(au_settings,screen,amongus,bullets)
       
 run_game()

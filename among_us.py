@@ -4,6 +4,7 @@ import pygame
 from pygame.sprite import Group
 
 from pers import AmongUs
+from traitor import Traitor
 from settings import Settings
 import game_functions as fg
 
@@ -15,9 +16,12 @@ def run_game():
     pygame.display.set_caption("Amon Us для Илюши!!!")
     #Назначение цвета фона
     amongus = AmongUs(screen)#au_settings
+    #Создание предателя
+    tr = Traitor(au_settings,screen)
     bullets = Group()
     #Создание персонажа
     #among_us_blue = AmongUs(au_settings,screen)
+    
 
     #Запуск основного цикла игры
     while True:
@@ -25,6 +29,6 @@ def run_game():
         amongus.update()
         bullets.update()
         fg.update_bullets(bullets)
-        fg.update_screen(au_settings,screen,amongus,bullets)
+        fg.update_screen(au_settings, screen, amongus, tr, bullets)
       
 run_game()

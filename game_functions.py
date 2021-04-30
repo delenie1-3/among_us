@@ -1,6 +1,7 @@
 import sys
 import pygame
 from bullet import Bullet
+from traitor import Traitor
 
 def check_keydown_events(event,au_settings,screen,amongus,bullets):
     #Реагирует на нажатие клавиш.
@@ -11,6 +12,8 @@ def check_keydown_events(event,au_settings,screen,amongus,bullets):
         amongus.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(au_settings,screen,amongus,bullets)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 def fire_bullet(au_settings,screen,amongus,bullets):
     #Выпускает пулю, если максимум ещё не достигнут.
@@ -36,12 +39,13 @@ def check_events(au_settings,screen,amongus,bullets):
             elif event.type == pygame.KEYUP:
                 check_keyup_events(event,amongus)
 
-def update_screen(au_settings, screen, amongus, bullets):
+def update_screen(au_settings,screen,amongus,traitor,bullets):
         screen.fill(au_settings.bg_color)
         #Все пули выводятся позади изображения персонажей
         for bullet in bullets.sprites():
             bullet.draw_bullet()
         amongus.blitme()
+        traitor.blitme()
 
         #Отображение последнего прорисованного экрана
         pygame.display.flip()

@@ -10,10 +10,14 @@ def check_keydown_events(event,au_settings,screen,amongus,bullets):
     elif event.key == pygame.K_LEFT:
         amongus.moving_left = True
     elif event.key == pygame.K_SPACE:
-        #Создание новыой пули и вкл. её в группу bullets/
-        if len(bullets) < au_settings.bullets_allowed:
-            new_bullet = Bullet(au_settings,screen,amongus)
-            bullets.add(new_bullet)
+        fire_bullet(au_settings,screen,amongus,bullets)
+
+def fire_bullet(au_settings,screen,amongus,bullets):
+    #Выпускает пулю, если максимум ещё не достигнут.
+    #Создание новыой пули и вкл. её в группу bullets/
+    if len(bullets) < au_settings.bullets_allowed:
+        new_bullet = Bullet(au_settings,screen,amongus)
+        bullets.add(new_bullet)
 
 def check_keyup_events(event,amongus):
     #Реагирует на отпускание клавиш.

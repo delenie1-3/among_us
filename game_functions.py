@@ -11,8 +11,9 @@ def check_keydown_events(event,au_settings,screen,amongus,bullets):
         amongus.moving_left = True
     elif event.key == pygame.K_SPACE:
         #Создание новыой пули и вкл. её в группу bullets/
-        new_bullet = Bullet(au_settings,screen,amongus)
-        bullets.add(new_bullet)
+        if len(bullets) < au_settings.bullets_allowed:
+            new_bullet = Bullet(au_settings,screen,amongus)
+            bullets.add(new_bullet)
 
 def check_keyup_events(event,amongus):
     #Реагирует на отпускание клавиш.

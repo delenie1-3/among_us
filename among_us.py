@@ -24,11 +24,7 @@ def run_game():
         fg.check_events(au_settings,screen,amongus,bullets)
         amongus.update()
         bullets.update()
-        #Удаление пуль, вышедших за край экрана.
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        #print(len(bullets)) Проверка удаления
+        fg.update_bullets(bullets)
         fg.update_screen(au_settings,screen,amongus,bullets)
       
 run_game()

@@ -41,3 +41,12 @@ def update_screen(au_settings, screen, amongus, bullets):
 
         #Отображение последнего прорисованного экрана
         pygame.display.flip()
+
+def update_bullets(bullets):
+    #Обновление поз.пуль и уничтожение старых
+    #Обновление поз.пуль
+    #Удаление пуль, вышедших за край экрана.
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
+    #print(len(bullets)) Проверка удаления

@@ -38,7 +38,8 @@ def check_events(au_settings,screen,amongus,bullets):
                 check_keydown_events(event,au_settings,screen,amongus,bullets)            
             elif event.type == pygame.KEYUP:
                 check_keyup_events(event,amongus)
-
+                
+    
 def update_screen(au_settings,screen,amongus,traitors,bullets):
         screen.fill(au_settings.bg_color)
         #Все пули выводятся позади изображения персонажей
@@ -58,21 +59,43 @@ def update_bullets(bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     #print(len(bullets)) Проверка удаления
+            
+def get_number_traitors_x(au_settings,traitor_width):
+    #Вычесляет кол-во пришельцев в ряду
+    available_space_x = au_settings.screen_width - 2*traitor_width
+    number_traitors_x = int(available_space_x / (2*traitor_width))
+    return number_traitors_x
 
-def create_fleet(au_settings,screen,traitors):
+def get_number_rows(au_settings,amongus_height,traitor_height):
+    #Определяет кол-во рядов, помещающихся на экране.
+    available_space_y = (au_settings.screen_height - (3*traitor_height)-amongus_height)
+    number_rows = int(available_space_y/(2*traitor_height))
+    return number_rows
+
+def create_traitor(au_settings,screen,traitors,traitor_number,row_number):
+    #Создаёт пришельца и размещает его в ряду
+    traitor = Traitor(au_settings,screen)
+    traitor_width = traitor.rect.width
+    traitor.x = traitor_width + 2*traitor_width*traitor_number
+    traitor.rect.x = traitor.x
+    traitor.rect.y = traitor.rect.height + 2*traitor.rect.height*row_number
+    traitors.add(traitor)
+    
+def create_fleet(au_settings,screen,amongus,traitors):
     #Создаёт флот предателей
     #Создёт предателя и вычесляет количество пришельцев в ряду
     #Интервал между соседними предателями равен одной ширине предателя
 
     traitor = Traitor(au_settings,screen)
-    traitor_width = traitor.rect.width
-    avialable_space_x = au_settings.screen_width - 2*traitor_width
-    number_traitors_x = int(avialable_space_x / (2*traitor_width))
+    number_traitors_x = get_number_traitors_x(au_settings,traitor.rect.width)
+    number_rows = get_number_rows(au_settings,amongus.rect.height,traitor.rect.height)
 
-    #Создание первого ряда предателей.
-    for traitor_number in range(number_traitors_x):
+    for row_number in range(number_rows):
+        #Создание первого ряда предателей.
+        for traitor_number in range(number_traitors_x):
         #Создание предателя и размещение его вряду.
-        traitor = Traitor(au_settings,screen)
-        traitor.x = traitor_width + 2*traitor_width*traitor_number
-        traitor.rect.x = traitor.x
-        traitors.add(traitor)
+        #traitor = Traitor(au_settings,screen)
+        #traitor.x = traitor_width + 2*traitor_width*traitor_number
+        #traitor.rect.x = traitor.x
+        #traitors.add(traitor)
+            create_traitor(au_settings,screen,traitors,traitor_number,row_number)

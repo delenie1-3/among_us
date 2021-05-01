@@ -19,14 +19,14 @@ def run_game():
     #Создание персонажа, группы пуль и группы предателей
     
     #Создание предателя
-    #tr = Traitor(au_settings,screen)
+    traitor = Traitor(au_settings,screen)
     bullets = Group()
     #Создание персонажа
     #among_us_blue = AmongUs(au_settings,screen)
     traitors = Group()
 
     #Создание флота пришельцев
-    fg.create_fleet(au_settings,screen,traitors)
+    fg.create_fleet(au_settings,screen,amongus,traitors)
     
     
 

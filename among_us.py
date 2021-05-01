@@ -35,7 +35,7 @@ def run_game():
         fg.check_events(au_settings,screen,amongus,bullets)
         amongus.update()
         bullets.update()
-        fg.update_bullets(bullets)
+        fg.update_bullets(traitors,bullets)
         fg.update_traitors(au_settings,traitors)
         fg.update_screen(au_settings, screen, amongus, traitors, bullets)
       

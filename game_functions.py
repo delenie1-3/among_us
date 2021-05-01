@@ -99,3 +99,21 @@ def create_fleet(au_settings,screen,amongus,traitors):
         #traitor.rect.x = traitor.x
         #traitors.add(traitor)
             create_traitor(au_settings,screen,traitors,traitor_number,row_number)
+
+def check_fleet_edges(au_settings,traitors):
+    #Реагирует на достичение предателем края экрана
+    for traitor in traitors.sprites():
+        if traitor.check_edges():
+            change_fleet_direction(au_settings,traitors)
+            break
+def change_fleet_direction(au_settings,traitors):
+    #Опускает весь флот и меняет направление флота
+    for traitor in traitors.sprites():
+        traitor.rect.y += au_settings.fleet_drop_speed
+    au_settings.fleet_direction *= -1
+
+def update_traitors(au_settings,traitors):
+    #Проверяет, достиг ли флот края экрана, обновляет позиции всего флота
+    check_fleet_edges(au_settings,traitors)
+    traitors.update()
+

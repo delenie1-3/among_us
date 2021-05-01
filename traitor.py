@@ -24,4 +24,18 @@ class Traitor(Sprite):#
     def blitme(self):
         #Выводит предателя в текущем положении
         self.screen.blit(self.image,self.rect)
+
+    def check_edges(self):
+        #Возвращает True, если предатель находится у края экрана
+        screen_rect = self.screen.get_rect()
+        if self.rect.right >= screen_rect.right:
+            return True
+        elif self.rect.left <= 0:
+            return True
+        
+
+    def update(self):
+        #Перемещает предателя вправо
+        self.x += (self.au_settings.traitor_speed_factor*self.au_settings.fleet_direction)
+        self.rect.x = self.x
         

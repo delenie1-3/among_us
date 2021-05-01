@@ -36,6 +36,7 @@ def run_game():
         amongus.update()
         bullets.update()
         fg.update_bullets(bullets)
+        fg.update_traitors(au_settings,traitors)
         fg.update_screen(au_settings, screen, amongus, traitors, bullets)
       
 run_game()

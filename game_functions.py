@@ -51,7 +51,7 @@ def update_screen(au_settings,screen,amongus,traitors,bullets):
         #Отображение последнего прорисованного экрана
         pygame.display.flip()
 
-def update_bullets(traitors,bullets):
+def update_bullets(au_settings,screen,amongus,traitors,bullets):
     #Обновление поз.пуль и уничтожение старых
     #Обновление поз.пуль
     #Удаление пуль, вышедших за край экрана.
@@ -62,6 +62,10 @@ def update_bullets(traitors,bullets):
     #Проверка поподания в предателей
     #При обнаружении попадания удалить пулю и предателя
     collisions = pygame.sprite.groupcollide(bullets,traitors,True,True)
+    if len(traitors) == 0:
+        #Уничтожение существующих пуль и создание новго флота.
+        bullets.empty()
+        create_fleet(au_settings,screen,amongus,traitors)
             
 def get_number_traitors_x(au_settings,traitor_width):
     #Вычесляет кол-во пришельцев в ряду

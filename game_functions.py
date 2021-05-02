@@ -61,6 +61,11 @@ def update_bullets(au_settings,screen,amongus,traitors,bullets):
     #print(len(bullets)) Проверка удаления
     #Проверка поподания в предателей
     #При обнаружении попадания удалить пулю и предателя
+    check_bullet_traitor_collisions(au_settings,screen,amongus,traitors,bullets)
+
+def check_bullet_traitor_collisions(au_settings,screen,amongus,traitors,bullets):
+    #Обработка коллизий пуль с предателями
+    #Удаление пуль и предателе, усаствующих в коллизии
     collisions = pygame.sprite.groupcollide(bullets,traitors,True,True)
     if len(traitors) == 0:
         #Уничтожение существующих пуль и создание новго флота.

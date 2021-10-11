@@ -4,7 +4,7 @@ from os import path
 from settings import Settings
 from aub import AmongUsBlue
 
-class AmongusInvasion:#класс для управления поведением игры и ресурсами
+class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
         pygame.init()
         self.img_dir = path.join(path.dirname(__file__), 'img')#определение папки с изображениями

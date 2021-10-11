@@ -32,17 +32,23 @@ class AmongusInvasion():#класс для управления поведени
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:#ПРОВЕРКА НАЖАТИЯ КЛАВИШИ
-                    if event.key == pygame.K_RIGHT:
-                        #перемещение вправо-влево
-                        self.aub.moving_right = True
-                    elif event.key == pygame.K_LEFT:
-                        self.aub.moving_left = True
+                    self._check_keydown_events(event)
                 elif event.type == pygame.KEYUP:#проверка отпускания
-                    if event.key == pygame.K_RIGHT:
-                        #остановка
-                        self.aub.moving_right = False
-                    elif event.key == pygame.K_LEFT:
-                        self.aub.moving_left = False
+                    self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            #перемещение вправо-влево
+            self.aub.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.aub.moving_left = True
+    
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            #остановка
+            self.aub.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.aub.moving_left = False
 
     def _update_screen(self):
         #self.screen.fill('BLACK')#цвет фона

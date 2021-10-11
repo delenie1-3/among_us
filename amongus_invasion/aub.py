@@ -8,7 +8,7 @@ class AmongUsBlue():#класс управления амонгом
         #инициализация амонга и его начальной позиции
         self.screen = au_game
         self.screen_rect = au_game.get_rect()
-        self.settings = Settings().aub_speed
+        self.settings = Settings().aub_speed#из настроек
 
         #изоборажение амонга
         self.image = pygame.image.load(path.join(self.img_dir, 'aub.bmp')).convert()#путь к амонгу
@@ -25,9 +25,9 @@ class AmongUsBlue():#класс управления амонгом
         self.moving_left = False
 
     def update(self):#обновление позиции корбля по флагу
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:#Проверка правого края 
             self.x += self.settings
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:#проверка левого края
             self.x -= self.settings
         self.rect.x = self.x#дробное присвоение
     

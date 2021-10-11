@@ -20,17 +20,29 @@ class AmongusInvasion:#класс для управления поведение
         self.background_rect = self.background.get_rect()#загрузка фона
   
     def run_game(self):#запуск игры
-        while True:#отслеживание клавиатуры и мыши
-            for event in pygame.event.get():
+        while True:
+            self._check_events()
+            self._update_screen()
+
+            
+
+    def _check_events(self):#отслеживание клавиатуры и мыши
+        for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:#ПРОВЕРКА НАЖАТИЯ КЛАВИШИ
+                    if event.key == pygame.K_RIGHT:
+                        #перемещение вправо
+                        self.aub.rect.x += 1
 
-            self.screen.fill('BLACK')#цвет фона
-            self.screen.blit(self.background, self.background_rect)#наложение фона
-            self.aub.blitme()#вывод амонга на экран
-            #all_sprites.draw(self.screen)
+    def _update_screen(self):
+        #self.screen.fill('BLACK')#цвет фона
+        self.screen.blit(self.background, self.background_rect)#наложение фона
+        self.aub.blitme()#вывод амонга на экран
+        #all_sprites.draw(self.screen)
 
-            pygame.display.flip()#отображение прорисованного экрана
+        pygame.display.flip()#отображение прорисованного экрана
+
 
 if __name__ == '__main__':#создание экземпляра и запуск игры
     ai = AmongusInvasion()

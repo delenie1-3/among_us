@@ -10,7 +10,11 @@ class AmongusInvasion():#класс для управления поведени
         self.img_dir = path.join(path.dirname(__file__), 'img')#определение папки с изображениями
 
         self.settings = Settings()#экземпляр настроек
-
+        '''полнооконный режим. требует дороботки
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
+        '''
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))#размер окна
         pygame.display.set_caption('Among Us вторжение')
 
@@ -42,6 +46,8 @@ class AmongusInvasion():#класс для управления поведени
             self.aub.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.aub.moving_left = True
+        elif event.key == paygame.K_q:
+            sys.exit()
     
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:

@@ -25,7 +25,7 @@ class AmongusInvasion:#класс для управления поведение
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            #self.screen.fill('BLACK')#цвет фона
+            self.screen.fill('BLACK')#цвет фона
             self.screen.blit(self.background, self.background_rect)#наложение фона
             self.aub.blitme()#вывод амонга на экран
             #all_sprites.draw(self.screen)

@@ -61,8 +61,9 @@ class AmongusInvasion():#класс для управления поведени
             self._fire_bullet()
 
     def _fire_bullet(self):#новый снаряд
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:#проверка количества одновременных снарядов
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
     
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:

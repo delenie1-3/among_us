@@ -3,6 +3,8 @@ import pygame
 from os import path
 from settings import Settings
 from aub import AmongUsBlue
+from pygame.sprite import Sprite
+from bullet import Bullet
 
 class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
@@ -19,6 +21,7 @@ class AmongusInvasion():#класс для управления поведени
         pygame.display.set_caption('Among Us вторжение')
 
         self.aub = AmongUsBlue(self.screen)#экземпляр амонга
+        self.bullets = pygame.sprite.Group()#экземпляр снаряда
 
         self.background = pygame.image.load(path.join(self.img_dir, 'sky.png')).convert()#путь к фону
         self.background_rect = self.background.get_rect()#загрузка фона
@@ -27,6 +30,12 @@ class AmongusInvasion():#класс для управления поведени
         while True:
             self._check_events()
             self.aub.update()
+            self.bullets.update()#обновление снаряда
+            #удаление снарядов
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            #print(len(self.bullets))проверка удаления снарядов
             self._update_screen()
 
             
@@ -46,8 +55,14 @@ class AmongusInvasion():#класс для управления поведени
             self.aub.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.aub.moving_left = True
-        elif event.key == paygame.K_q:
+        elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:#выстрел пробелом
+            self._fire_bullet()
+
+    def _fire_bullet(self):#новый снаряд
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
     
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -61,6 +76,8 @@ class AmongusInvasion():#класс для управления поведени
         self.screen.blit(self.background, self.background_rect)#наложение фона
         self.aub.blitme()#вывод амонга на экран
         #all_sprites.draw(self.screen)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         pygame.display.flip()#отображение прорисованного экрана
 

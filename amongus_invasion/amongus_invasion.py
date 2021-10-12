@@ -76,6 +76,15 @@ class AmongusInvasion():#класс для управления поведени
             self.bullets.empty()
             self._create_fleet()
 
+    def _check_traitors_bottom(self):
+        #проверка достижения нижнего края экрана предателем
+        screen_rect = self.screen.get_rect()
+        for traitor in self.traitors.sprites():
+            if traitor.rect.bottom >= screen_rect.bottom:
+                #аналогия со столкновением с амогом
+                self._aub_hit()
+                break
+
     def _update_traitors(self):#проверка достижения края
         #обновление позиций всех предателей
         self._check_fleet_edges()
@@ -84,6 +93,9 @@ class AmongusInvasion():#класс для управления поведени
         #проверка коллизии "придатель - амонг"
         if pygame.sprite.spritecollideany(self.aub, self.traitors):
             self._aub_hit()
+
+        #проверка, достижения предателями нижнего края экрана
+        self._check_traitors_bottom()
 
     def _check_events(self):#отслеживание клавиатуры и мыши
         for event in pygame.event.get():

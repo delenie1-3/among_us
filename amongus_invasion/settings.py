@@ -16,6 +16,6 @@ class Settings():#класс настроек игры
 
         #настройка предателей
         self.traitor_speed = 0.1#скорость флота
-        self.fleet_drop_speed = 10
+        self.fleet_drop_speed = 100
         #fleet_direction = 1 вправо, -1 влево
         self.fleet_direction = 1

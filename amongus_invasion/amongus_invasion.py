@@ -62,6 +62,10 @@ class AmongusInvasion():#класс для управления поведени
         self._check_fleet_edges()
         self.traitors.update()
 
+        #проверка коллизии "придатель - амонг"
+        if pygame.sprite.spritecollideany(self.aub, self.traitors):
+            print("Амонг подбит")
+
     def _check_events(self):#отслеживание клавиатуры и мыши
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:

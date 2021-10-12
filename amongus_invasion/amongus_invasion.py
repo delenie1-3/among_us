@@ -37,26 +37,30 @@ class AmongusInvasion():#класс для управления поведени
     def run_game(self):#запуск игры
         while True:
             self._check_events()
-            self.aub.update()
-            self.bullets.update()#обновление снаряда
-            self._update_bullets()
-            self._update_traitors()#обновление позиции предателя
+            if self.stats.game_active:
+                self.aub.update()
+                self.bullets.update()#обновление снаряда
+                self._update_bullets()
+                self._update_traitors()#обновление позиции предателя
             self._update_screen()
 
     def _aub_hit(self):#обработка столкновения амонга с предателем
-        #уменьшение кол-ва амонгов
-        self.stats.aubs_left -= 1
+        if self.stats.aubs_left > 0:
+            #уменьшение кол-ва амонгов
+            self.stats.aubs_left -= 1
 
-        #очистка списка предателей и снарядов
-        self.traitors.empty()
-        self.bullets.empty()
+            #очистка списка предателей и снарядов
+            self.traitors.empty()
+            self.bullets.empty()
 
-        #создание нового флота и размещение амонга в центре
-        self._create_fleet()
-        self.aub.center_aub()
+            #создание нового флота и размещение амонга в центре
+            self._create_fleet()
+            self.aub.center_aub()
 
-        #пауза
-        sleep(0.5)
+            #пауза
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _update_bullets(self):#проверка позиции и удаление снарядов
         #удаление снарядов

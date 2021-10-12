@@ -10,7 +10,7 @@ class Settings():#класс настроек игры
 
         #Параметры снаряда
         self.bullet_speed = 1
-        self.bullet_width = 
+        self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = ('red')
         self.bullets_allowed = 3

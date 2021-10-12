@@ -84,6 +84,7 @@ class AmongusInvasion():#класс для управления поведени
             #уничтожение снарядов и создание нового флота
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _check_traitors_bottom(self):
         #проверка достижения нижнего края экрана предателем
@@ -122,6 +123,8 @@ class AmongusInvasion():#класс для управления поведени
         #Запуск новой игры при нажатии на Play
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            #Сброс игровых настроек
+            self.settings.initialize_dynamic_settings()
             #сброс игровой статистики
             self.stats.reset_stats()
             self.stats.game_active = True

@@ -65,6 +65,7 @@ class AmongusInvasion():#класс для управления поведени
             sleep(0.5)
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _update_bullets(self):#проверка позиции и удаление снарядов
         #удаление снарядов
@@ -132,6 +133,9 @@ class AmongusInvasion():#класс для управления поведени
             #создание нового флота и ...
             self._create_fleet()
             self.aub.center_aub()
+
+            #Указатель мыши скрывается
+            pygame.mouse.set_visible(False)
 
 
     def _check_keydown_events(self, event):

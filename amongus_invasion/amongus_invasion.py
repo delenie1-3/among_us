@@ -8,6 +8,7 @@ from pygame.sprite import Sprite
 from bullet import Bullet
 from traitor import Traitor
 from game_stats import GameStats
+from button import Button
 
 class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
@@ -33,6 +34,9 @@ class AmongusInvasion():#класс для управления поведени
 
         self.background = pygame.image.load(path.join(self.img_dir, 'sky.png')).convert()#путь к фону
         self.background_rect = self.background.get_rect()#загрузка фона
+
+        #Создание кнопки
+        self.play_button = Button(self, 'Play')
   
     def run_game(self):#запуск игры
         while True:
@@ -109,6 +113,14 @@ class AmongusInvasion():#класс для управления поведени
                     self._check_keydown_events(event)
                 elif event.type == pygame.KEYUP:#проверка отпускания
                     self._check_keyup_events(event)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        #Запуск новой игры при нажатии на Play
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -179,6 +191,10 @@ class AmongusInvasion():#класс для управления поведени
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.traitors.draw(self.screen)#отображение пришельца на экране
+
+        #Кнопка play отображается если игра не активна
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()#отображение прорисованного экрана
 

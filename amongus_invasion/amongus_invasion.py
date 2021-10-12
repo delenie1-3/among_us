@@ -46,6 +46,9 @@ class AmongusInvasion():#класс для управления поведени
                 self.bullets.remove(bullet)
         #print(len(self.bullets))проверка удаления снарядов
 
+        self._check_bullet_traitor_collisions()
+
+    def _check_bullet_traitor_collisions(self):
         #Проверка поподание снарядом
         #удаление предателя
         collisions = pygame.sprite.groupcollide(self.bullets, self.traitors, True, True)

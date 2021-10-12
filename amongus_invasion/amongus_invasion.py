@@ -5,6 +5,7 @@ from settings import Settings
 from aub import AmongUsBlue
 from pygame.sprite import Sprite
 from bullet import Bullet
+from traitor import Traitor
 
 class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
@@ -22,6 +23,9 @@ class AmongusInvasion():#класс для управления поведени
 
         self.aub = AmongUsBlue(self.screen)#экземпляр амонга
         self.bullets = pygame.sprite.Group()#экземпляр снаряда
+        self.traitors = pygame.sprite.Group()#экземпляр предателя
+
+        self._create_fleet()
 
         self.background = pygame.image.load(path.join(self.img_dir, 'sky.png')).convert()#путь к фону
         self.background_rect = self.background.get_rect()#загрузка фона
@@ -74,6 +78,11 @@ class AmongusInvasion():#класс для управления поведени
         elif event.key == pygame.K_LEFT:
             self.aub.moving_left = False
 
+    def _create_fleet(self):#создание флота предателей
+        #создание предателя
+        traitor = Traitor(self)
+        self.traitors.add(traitor)
+
     def _update_screen(self):
         #self.screen.fill('BLACK')#цвет фона
         self.screen.blit(self.background, self.background_rect)#наложение фона
@@ -81,6 +90,7 @@ class AmongusInvasion():#класс для управления поведени
         #all_sprites.draw(self.screen)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.traitors.draw(self.screen)#отображение пришельца на экране
 
         pygame.display.flip()#отображение прорисованного экрана
 

@@ -120,7 +120,18 @@ class AmongusInvasion():#класс для управления поведени
     def _check_play_button(self, mouse_pos):
         #Запуск новой игры при нажатии на Play
         if self.play_button.rect.collidepoint(mouse_pos):
+            #сброс игровой статистики
+            self.stats.reset_stats()
             self.stats.game_active = True
+
+            #очистка списка предателей и снарядов
+            self.traitors.empty()
+            self.bullets.empty()
+
+            #создание нового флота и ...
+            self._create_fleet()
+            self.aub.center_aub()
+
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:

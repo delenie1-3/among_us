@@ -9,3 +9,4 @@ class GameStats():
     def reset_stats(self):
         #инициализация
         self.aubs_left = self.settings.aub_limit
+        self.score = 0

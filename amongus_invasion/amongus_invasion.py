@@ -9,6 +9,7 @@ from bullet import Bullet
 from traitor import Traitor
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
@@ -24,7 +25,10 @@ class AmongusInvasion():#класс для управления поведени
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))#размер окна
         pygame.display.set_caption('Among Us вторжение')
 
+        #создание экземпляров для хранения статистики
+        #и панели результатов
         self.stats = GameStats(self)#экземпляр игровой статистики
+        self.sb = Scoreboard(self)
 
         self.aub = AmongUsBlue(self.screen)#экземпляр амонга
         self.bullets = pygame.sprite.Group()#экземпляр снаряда
@@ -210,6 +214,8 @@ class AmongusInvasion():#класс для управления поведени
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.traitors.draw(self.screen)#отображение пришельца на экране
+
+        self.sb.show_score()#вывод информации о счёте
 
         #Кнопка play отображается если игра не активна
         if not self.stats.game_active:

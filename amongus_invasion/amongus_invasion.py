@@ -79,9 +79,20 @@ class AmongusInvasion():#класс для управления поведени
             self.aub.moving_left = False
 
     def _create_fleet(self):#создание флота предателей
-        #создание предателя
+        # Создание предателя и вычисление количества предателя в ряду
+        # Интервал между соседними предателями равен ширине предателя
         traitor = Traitor(self)
-        self.traitors.add(traitor)
+        traitor_width = traitor.rect.width
+        avialable_space_x = self.settings.screen_width - (2 * traitor_width)
+        number_traitors_x = avialable_space_x // (2 * traitor_width)
+
+        #первый ряд предателей
+        for traitor_number in range(number_traitors_x):
+            #создание предателя и размещения его в ряду
+            traitor = Traitor(self)
+            traitor.x = traitor_width + 2 * traitor_width * traitor_number
+            traitor.rect.x = traitor.x
+            self.traitors.add(traitor)
 
     def _update_screen(self):
         #self.screen.fill('BLACK')#цвет фона

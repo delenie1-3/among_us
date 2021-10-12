@@ -31,14 +31,16 @@ class AmongusInvasion():#класс для управления поведени
             self._check_events()
             self.aub.update()
             self.bullets.update()#обновление снаряда
-            #удаление снарядов
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            #print(len(self.bullets))проверка удаления снарядов
+            self._update_bullets()
             self._update_screen()
 
-            
+    def _update_bullets(self):#проверка позиции и удаление снарядов
+        #удаление снарядов
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        #print(len(self.bullets))проверка удаления снарядов
+
 
     def _check_events(self):#отслеживание клавиатуры и мыши
         for event in pygame.event.get():

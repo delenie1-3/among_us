@@ -82,17 +82,28 @@ class AmongusInvasion():#класс для управления поведени
         # Создание предателя и вычисление количества предателя в ряду
         # Интервал между соседними предателями равен ширине предателя
         traitor = Traitor(self)
-        traitor_width = traitor.rect.width
+        traitor_width, traitor_height = traitor.rect.size
         avialable_space_x = self.settings.screen_width - (2 * traitor_width)
         number_traitors_x = avialable_space_x // (2 * traitor_width)
 
-        #первый ряд предателей
-        for traitor_number in range(number_traitors_x):
-            #создание предателя и размещения его в ряду
-            traitor = Traitor(self)
-            traitor.x = traitor_width + 2 * traitor_width * traitor_number
-            traitor.rect.x = traitor.x
-            self.traitors.add(traitor)
+        #кол-во радов на экран
+        aub_height = self.aub.rect.height
+        avialable_space_y = (self.settings.screen_height - (3 * traitor_height) - aub_height)
+        number_rows = avialable_space_y // (2 * traitor_height)
+
+        #создание флот предателей
+        for row_number in range(number_rows):
+            for traitor_number in range(number_traitors_x):
+                self._create_traitor(traitor_number, row_number)
+
+    def _create_traitor(self, traitor_number, row_number):
+        #создание предателя и размещения его в ряду
+        traitor = Traitor(self)
+        traitor_width, traitor_height = traitor.rect.size
+        traitor.x = traitor_width + 2 * traitor_width * traitor_number
+        traitor.rect.x = traitor.x
+        traitor.rect.y = traitor.rect.height + 2 * traitor.rect.height * row_number
+        self.traitors.add(traitor)
 
     def _update_screen(self):
         #self.screen.fill('BLACK')#цвет фона

@@ -33,3 +33,8 @@ class AmongUsBlue():#класс управления амонгом
     
     def blitme(self):#прорисовка амонга
         self.screen.blit(self.image, self.rect)
+
+    def center_aub(self):
+        #размещение амонга в центре
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)

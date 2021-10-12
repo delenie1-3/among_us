@@ -6,6 +6,7 @@ class Settings():#класс настроек игры
         
         #настройки амонга
         self.aub_speed = 0.5
+        self.aub_limit = 3
 
         #Параметры снаряда
         self.bullet_speed = 1

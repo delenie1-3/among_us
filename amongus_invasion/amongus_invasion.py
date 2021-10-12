@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 import pygame
 from os import path
 from settings import Settings
@@ -6,6 +7,7 @@ from aub import AmongUsBlue
 from pygame.sprite import Sprite
 from bullet import Bullet
 from traitor import Traitor
+from game_stats import GameStats
 
 class AmongusInvasion():#класс для управления поведением игры и ресурсами
     def __init__(self):#инициализация игры и ресурсов
@@ -20,6 +22,8 @@ class AmongusInvasion():#класс для управления поведени
         '''
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))#размер окна
         pygame.display.set_caption('Among Us вторжение')
+
+        self.stats = GameStats(self)#экземпляр игровой статистики
 
         self.aub = AmongUsBlue(self.screen)#экземпляр амонга
         self.bullets = pygame.sprite.Group()#экземпляр снаряда
@@ -38,6 +42,21 @@ class AmongusInvasion():#класс для управления поведени
             self._update_bullets()
             self._update_traitors()#обновление позиции предателя
             self._update_screen()
+
+    def _aub_hit(self):#обработка столкновения амонга с предателем
+        #уменьшение кол-ва амонгов
+        self.stats.aubs_left -= 1
+
+        #очистка списка предателей и снарядов
+        self.traitors.empty()
+        self.bullets.empty()
+
+        #создание нового флота и размещение амонга в центре
+        self._create_fleet()
+        self.aub.center_aub()
+
+        #пауза
+        sleep(0.5)
 
     def _update_bullets(self):#проверка позиции и удаление снарядов
         #удаление снарядов
@@ -64,7 +83,7 @@ class AmongusInvasion():#класс для управления поведени
 
         #проверка коллизии "придатель - амонг"
         if pygame.sprite.spritecollideany(self.aub, self.traitors):
-            print("Амонг подбит")
+            self._aub_hit()
 
     def _check_events(self):#отслеживание клавиатуры и мыши
         for event in pygame.event.get():

@@ -36,6 +36,7 @@ class AmongusInvasion():#класс для управления поведени
             self.aub.update()
             self.bullets.update()#обновление снаряда
             self._update_bullets()
+            self._update_traitors()#обновление позиции предателя
             self._update_screen()
 
     def _update_bullets(self):#проверка позиции и удаление снарядов
@@ -45,6 +46,10 @@ class AmongusInvasion():#класс для управления поведени
                 self.bullets.remove(bullet)
         #print(len(self.bullets))проверка удаления снарядов
 
+    def _update_traitors(self):#проверка достижения края
+        #обновление позиций всех предателей
+        self._check_fleet_edges()
+        self.traitors.update()
 
     def _check_events(self):#отслеживание клавиатуры и мыши
         for event in pygame.event.get():
@@ -104,6 +109,17 @@ class AmongusInvasion():#класс для управления поведени
         traitor.rect.x = traitor.x
         traitor.rect.y = traitor.rect.height + 2 * traitor.rect.height * row_number
         self.traitors.add(traitor)
+
+    def _check_fleet_edges(self):#реагирует на достижение края экрана предателем
+        for traitor in self.traitors.sprites():
+            if traitor.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):#снижение и смена направления флота
+        for traitor in self.traitors.sprites():
+            traitor.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
 
     def _update_screen(self):
         #self.screen.fill('BLACK')#цвет фона

@@ -13,3 +13,9 @@ class Settings():#класс настроек игры
         self.bullet_height = 15
         self.bullet_color = ('red')
         self.bullets_allowed = 3
+
+        #настройка предателей
+        self.traitor_speed = 0.1#скорость флота
+        self.fleet_drop_speed = 10
+        #fleet_direction = 1 вправо, -1 влево
+        self.fleet_direction = 1

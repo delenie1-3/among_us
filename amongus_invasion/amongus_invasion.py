@@ -213,7 +213,7 @@ class AmongusInvasion():#класс для управления поведени
         #all_sprites.draw(self.screen)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-        self.traitors.draw(self.screen)#отображение пришельца на экране
+        self.traitors.draw(self.screen)#отображение приexitшельца на экране
 
         self.sb.show_score()#вывод информации о счёте
 
